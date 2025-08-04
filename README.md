@@ -160,9 +160,6 @@ To replicate this project, follow these steps:
 * Set up automated data refresh schedules for the Cloud SQL database and Looker Studio.
 * Explore advanced analytics (e.g., predictive modeling for sales) and integrate results into the dashboard.
 
-## Author
-
-* [Your Name/GitHub Profile Link]
 
 ## License
 
