@@ -11,7 +11,7 @@ In a competitive global retail environment, understanding sales patterns, custom
 ## Dataset
 
 The analysis is based on the **Global Superstore Sales Dataset**.
-* **Source:** [Kaggle - Global Superstore Dataset](https://www.kaggle.com/datasets/fatihilhan/global-superstore-dataset) (or the specific Kaggle link you used)
+* **Source:** [Kaggle - Global Superstore Dataset](https://www.kaggle.com/datasets/fatihilhan/global-superstore-dataset) 
 * **Description:** This dataset contains detailed information about sales transactions from a hypothetical global superstore, including customer details, product information, geographical locations, order specifics, and financial metrics (sales, profit, discount, shipping cost) over several years.
 
 ## Architecture and Technology Stack
@@ -44,7 +44,6 @@ The following ER diagram illustrates the relationships between the normalized ta
 
 ![ER Diagram of Normalized Superstore Database](erd/superstore_erd.png)
 
-*(Ensure the image path `erd/superstore_erd.png` is correct and the image file exists in that location in your repo.)*
 
 ## Key Business Insights & Visualizations
 
