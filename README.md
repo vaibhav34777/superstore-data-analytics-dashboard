@@ -98,46 +98,25 @@ Explore the interactive dashboard directly in Google Looker Studio:
 
 ## Setup and Usage
 
-To replicate this project, follow these steps:
+To replicate and explore this project, follow these streamlined steps:
 
 ### Prerequisites
 
 * A Google Cloud Platform (GCP) account.
 * Access to Google Cloud SQL (PostgreSQL instance recommended).
 * Access to Google Looker Studio.
-* Basic understanding of SQL.
 
 ### Database Setup (Cloud SQL - PostgreSQL)
 
 1.  **Clone the Repository:**
     ```bash
-    git clone [https://github.com/YOUR_GITHUB_USERNAME/your-repo-name.git](https://github.com/YOUR_GITHUB_USERNAME/your-repo-name.git)
-    cd your-repo-name
+    git clone https://github.com/vaibhav34777/superstore-data-analytics-dashboard.git
+   
     ```
-2.  **Connect to Your Cloud SQL Instance:**
-    Use your preferred method (Cloud Shell, `psql` client, Cloud SQL Proxy, or a GUI tool like DBeaver/pgAdmin) to connect to your PostgreSQL database instance.
-3.  **Create Database Schema:**
-    Execute the `01_schema.sql` script to create all the necessary tables based on the normalized design:
-    ```sql
-    -- Example using psql:
-    \i sql/01_schema.sql
-    ```
-4.  **Load Raw Data:**
-    Execute the `02_raw_data_load.sql` script to create the staging `raw_data` table.
-    **Important:** The raw Global Superstore dataset (CSV file) is typically large. You will need to import this CSV data into the `raw_data` table.
-    * **Using Cloud SQL Import:** Go to your Cloud SQL instance in GCP Console, navigate to "Import," select your `raw_data` table, and upload the CSV file from your local machine or Cloud Storage.
-    * **Using `psql` COPY command:** If connecting via `psql` from a machine where the CSV is present:
-        ```sql
-        COPY raw_data FROM '/path/to/your/Global_Superstore_Sales.csv' WITH (FORMAT CSV, HEADER TRUE);
-        ```
-        *(Ensure the CSV file is accessible from where you run the command and adjust the path)*
-5.  **Populate Normalized Tables:**
-    Execute the `03_insert_data.sql` script. This script contains the logic to extract, transform, and load data from `raw_data` into your normalized tables, handling duplicates and data type conversions.
-    ```sql
-    -- Example using psql:
-    \i sql/03_insert_data.sql
-    ```
-    Verify data by running `SELECT COUNT(*) FROM your_table_name;` for each table.
+2.  **Database Creation and Population:**
+    * The normalized database schema (defined in `sql/01_schema.sql`) and the data insertion logic (in `sql/03_insert_data.sql`, which processes data from a `raw_data` staging table created by `sql/02_raw_data_load.sql`) were initially developed and populated using DBeaver.
+    * The complete, populated database was then uploaded to Google Cloud SQL via a database dump file.
+    * **To replicate:** You would typically create a new PostgreSQL instance in Cloud SQL and then import a database dump file (generated from your local DBeaver setup) into this instance. This ensures all tables are created and populated with the normalized data.
 
 ### Looker Studio Dashboard Setup
 
@@ -145,13 +124,13 @@ To replicate this project, follow these steps:
     * Go to [Looker Studio](https://datastudio.google.com/).
     * Click `+ Create` -> `Data Source`.
     * Select the `PostgreSQL` connector.
-    * Enter your Cloud SQL connection details (Hostname, Port, Database, Username, Password).
-    * **Add each of your normalized tables** (`customers`, `geography`, `products`, `orders`, `order_details`) as separate data sources. For each, ensure you refresh fields after connecting.
-2.  **Recreate the Dashboard (Optional, or Use Live Link):**
-    While the live dashboard link provides immediate access, if you want to understand the chart configurations:
-    * Create a new report in Looker Studio.
-    * For each insight, follow the steps outlined in the `looker_studio_dashboard_guide` (which you have in your previous interactions) to create the charts. Remember to use **Data Blending** to combine data from multiple tables for each visualization.
-    * Refer to the screenshots in the `looker_studio/screenshots/` folder for visual guidance.
+    * Enter your Cloud SQL connection details (Hostname, Port, Database, Username, Password) for the *already populated* database.
+    * **Add each of your normalized tables** (`customers`, `geography`, `products`, `orders`, `order_details`) as separate data sources. Looker Studio will automatically detect the fields from your populated tables.
+2.  **Explore and Analyze:**
+    * Once connected, you can begin exploring the data and building visualizations.
+    * Refer to the live dashboard link provided above and the screenshots in the `looker_studio/screenshots/` folder for examples of the insights and chart configurations.
+    * Utilize Looker Studio's **Data Blending** feature to combine data from multiple tables for comprehensive visualizations (e.g., joining `orders` and `order_details` for sales trends).
+
 
 ## Future Enhancements
 
